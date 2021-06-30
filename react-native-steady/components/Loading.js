@@ -2,7 +2,7 @@ import React from 'react';
 import {View,Text,StyleSheet} from 'react-native';
 
 export default function Loading(){
-    return(<View style={styles.container}><Text style={styles.title}>준비중입니다...</Text></View>)
+    return(<View style={styles.container}><Text style={styles.title}>firebase 사용 및 데이터 준비중</Text></View>)
 }
 
 
