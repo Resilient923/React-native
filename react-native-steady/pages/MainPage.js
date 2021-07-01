@@ -1,6 +1,6 @@
 import React,{useState,useEffect} from 'react';
 import main from '../assets/main.png';
-import { StyleSheet, Text, View, Image, TouchableOpacity, ScrollView} from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity, ScrollView,Platform} from 'react-native';
 import data from '../data.json';
 import Card from '../components/Card';
 import Loading from '../components/Loading';
@@ -8,6 +8,14 @@ import { StatusBar } from 'expo-status-bar';
 import * as Location from "expo-location";
 import axios from "axios"
 import {firebase_db} from "../firebaseConfig"
+
+import {
+  setTestDeviceIDAsync,
+  AdMobBanner,
+  AdMobInterstitial,
+  PublisherBanner,
+  AdMobRewarded
+} from 'expo-ads-admob';
 
 export default function MainPage({navigation,route}) {
   console.disableYellowBox = true;
@@ -78,15 +86,15 @@ export default function MainPage({navigation,route}) {
       console.log(temp)
       console.log(condition)
 
-      //오랜만에 복습해보는 객체 리터럴 방식으로 딕셔너리 구성하기!!
-      //잘 기억이 안난다면 1주차 강의 6-5를 다시 복습해보세요!
+      //오랜만에 복습해보는 객체 리터럴 방식으로 딕셔너리 구성!!
+      //잘 기억이 안난다면 1주차 강의 6-5를 다시 복습!
       setWeather({
         temp,condition
       })
 
 
     } catch (error) {
-      //혹시나 위치를 못가져올 경우를 대비해서, 안내를 준비합니다
+      //혹시나 위치를 못가져올 경우를 대비해서, 안내를 준비
       Alert.alert("위치를 찾을 수가 없습니다.", "앱을 껏다 켜볼까요?");
     }
   }
@@ -136,6 +144,21 @@ export default function MainPage({navigation,route}) {
             })
             }
             
+            {Platform.OS === 'ios' ? (
+                <AdMobBanner
+                  bannerSize="fullBanner"
+                  servePersonalizedAds={true}
+                  adUnitID="ca-app-pub-1456411634993745/2273289751"
+                  style={styles.banner}
+                />
+            ) : (
+                <AdMobBanner
+                  bannerSize="fullBanner"
+                  servePersonalizedAds={true}
+                  adUnitID="ca-app-pub-1456411634993745/5233305647"
+                  style={styles.banner}
+                />
+            )}
         </View>
     </ScrollView>
   );
